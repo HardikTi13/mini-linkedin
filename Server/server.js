@@ -1,10 +1,16 @@
 const express = require('express');
 const cors = require('cors');
+const connectDB=require('./connection')
+const allRoutes=require('./routes/AllRoutes')
 
 const app = express();
 
 app.use(cors());           
 app.use(express.json());   
+
+connectDB()
+
+app.use('/api',allRoutes)
 
 app.get('/', (req, res) => {
   res.send('Server is running!');
