@@ -12,8 +12,12 @@ const verifyToken = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    req.user = decoded;
+    // Ensure the decoded payload contains a user id
+    if (!decoded.id) {
+      return res.status(403).json({ message: 'Token payload missing user ID.' });
+    }
 
+    req.user = { id: decoded.id }; // Attach to request for controller access
     next(); 
   } catch (err) {
     return res.status(403).json({ message: 'Invalid or expired token.' });

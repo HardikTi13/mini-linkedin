@@ -6,7 +6,7 @@ const proposalSchema = new mongoose.Schema({
     ref: 'User', 
     required: true
   },
-  open: {
+  status: {
     type: String,
     enum: ['Open', 'Closed'],
     default: 'Open' 
@@ -22,6 +22,9 @@ const proposalSchema = new mongoose.Schema({
   eligibility: {
     type: String,
     trim: true
+  },
+  description:{
+    type:String
   }
 }, {
   timestamps: true 

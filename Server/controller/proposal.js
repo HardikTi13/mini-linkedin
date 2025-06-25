@@ -2,7 +2,10 @@ const Proposal = require('../models/proposal');
 
 exports.createProposal = async (req, res) => {
   try {
-    const proposal = await Proposal.create(req.body);
+    const proposal = await Proposal.create({
+      ...req.body,
+      userId: req.user.id, 
+    });
     res.status(201).json(proposal);
   } catch (error) {
     res.status(400).json({ error: error.message });
